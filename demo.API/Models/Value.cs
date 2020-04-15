@@ -1,4 +1,4 @@
-namespace demo.API.Properties.Models
+namespace demo.API.Models
 {
     public class Value
     {

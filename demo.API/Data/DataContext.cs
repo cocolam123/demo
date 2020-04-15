@@ -1,4 +1,4 @@
-using demo.API.Properties.Models;
+using demo.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace demo.API.Data
@@ -8,5 +8,6 @@ namespace demo.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
         
         public DbSet<Value> Values { get; set; } 
+         public DbSet<User> Users { get; set; } 
     }
 }
