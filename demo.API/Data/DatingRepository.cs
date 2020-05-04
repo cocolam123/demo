@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using demo.API.Helpers;
 using demo.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,11 +43,11 @@ namespace demo.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParms)
         {
-           var users =  await _context.Users.Include(p => p.Photos).ToListAsync();
+           var users =  _context.Users.Include(p => p.Photos);
 
-           return users;
+           return await PagedList<User>.CreateAsync(users, userParms.PageNumber, userParms.PageSize);
         }
 
         public async Task<bool> SaveAll()
