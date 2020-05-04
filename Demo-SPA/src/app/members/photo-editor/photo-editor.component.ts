@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyjsService } from 'src/app/_services/alertifyjs.service';
-import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-photo-editor',
@@ -54,6 +53,12 @@ export class PhotoEditorComponent implements OnInit {
           isMain: res.isMain
         };
         this.photos.push(photo);
+        if (photo.isMain) {
+          this.authService.changeMemberPhoto(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem('user', JSON.stringify(this.authService.currentUser))
+    
+        }
       }
     };
   }
