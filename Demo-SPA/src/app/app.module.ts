@@ -7,6 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -33,7 +34,12 @@ import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { AdminService } from './_services/admin.service';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -59,7 +65,12 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      AdminPanelComponent,
+      HasRoleDirective,
+      UserManagementComponent,
+      PhotoManagementComponent,
+      RolesModalComponent
    ],
    imports: [
       BrowserModule,
@@ -73,6 +84,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       PaginationModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      ModalModule.forRoot(),
       FileUploadModule,
       JwtModule.forRoot({
          config: {
@@ -91,8 +103,12 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      AdminService
       // { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+   ],
+   entryComponents: [
+      RolesModalComponent
    ],
    bootstrap: [
       AppComponent
